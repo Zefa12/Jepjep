@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Haekal Zefa | MEP Engineer & QS</title>
+    <meta name="description" content="Portfolio of Haekal Zefa Ramadhan, MEP Engineer and Quantity Surveyor.">
+    <meta name="theme-color" content="#0f172a">
+    <meta property="og:title" content="Haekal Zefa | MEP Engineer & QS">
+    <meta property="og:description" content="MEP Engineering and Quantity Surveying portfolio of Haekal Zefa Ramadhan.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://zefa12.my.id/">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['Fira Code', 'monospace'],
+                    },
+                    colors: {
+                        brand: {
+                            400: '#38bdf8', // Light blue cyan
+                            500: '#0ea5e9', // Blue cyan
+                            600: '#0284c7', // Darker cyan
+                        },
+                        dark: {
+                            900: '#0f172a',
+                            800: '#1e293b',
+                            700: '#334155',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #0f172a;
+            color: #cbd5e1;
+        }
+        .glass-nav {
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(51, 65, 85, 0.5);
+        }
+        .tech-grid {
+            background-image: 
+                linear-gradient(rgba(51, 65, 85, 0.2) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(51, 65, 85, 0.2) 1px, transparent 1px);
+            background-size: 30px 30px;
+        }
+
+        html { scroll-behavior: smooth; }
+        section, footer { scroll-margin-top: 96px; }
+        a, button { -webkit-tap-highlight-color: transparent; }
+        a:focus-visible, button:focus-visible { outline: 2px solid #38bdf8; outline-offset: 3px; }
+        .skip-link {
+            position: fixed;
+            left: 1rem;
+            top: -4rem;
+            z-index: 100;
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            background: #0ea5e9;
+            color: white;
+            font-weight: 700;
+            transition: top 0.2s ease;
+        }
+        .skip-link:focus { top: 1rem; }
+        .reveal {
+            opacity: 0;
+            transform: translateY(18px);
+            transition: opacity 0.65s ease, transform 0.65s ease;
+        }
+        .reveal.is-visible { opacity: 1; transform: translateY(0); }
+        .engineering-3d {
+            position: relative;
+            width: min(100%, 560px);
+            height: 560px;
+            border-radius: 1.5rem;
+            border: 1px solid rgba(56, 189, 248, 0.25);
+            background:
+                radial-gradient(circle at 50% 38%, rgba(14,165,233,0.13), transparent 42%),
+                linear-gradient(180deg, rgba(15,23,42,0.92), rgba(2,6,23,0.98));
+            box-shadow: 0 30px 80px rgba(0,0,0,0.45), inset 0 0 60px rgba(14,165,233,0.06);
+            overflow: hidden;
+            isolation: isolate;
+        }
+        .engineering-3d::before {
+            content: "";
+            position: absolute;
+            inset: 14px;
+            border: 1px solid rgba(51, 65, 85, 0.55);
+            border-radius: 1rem;
+            pointer-events: none;
+            z-index: 2;
+        }
+        .engineering-3d canvas {
+            width: 100%;
+            height: 100%;
+            display: block;
+            cursor: grab;
+        }
+        .engineering-3d canvas:active { cursor: grabbing; }
+        .model-hud {
+            position: absolute;
+            inset: 0;
+            z-index: 3;
+            pointer-events: none;
+            font-family: 'Fira Code', monospace;
+        }
+        .model-label {
+            position: absolute;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            padding: 0.45rem 0.7rem;
+            border: 1px solid rgba(56,189,248,0.28);
+            border-radius: 0.55rem;
+            background: rgba(15,23,42,0.78);
+            backdrop-filter: blur(10px);
+            color: #bae6fd;
+            font-size: 0.68rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            box-shadow: 0 10px 24px rgba(0,0,0,0.24);
+        }
+        .model-label::before {
+            content: "";
+            width: 0.45rem;
+            height: 0.45rem;
+            border-radius: 999px;
+            background: #38bdf8;
+            box-shadow: 0 0 12px rgba(56,189,248,0.9);
+        }
+        .model-label.top-left { top: 30px; left: 30px; }
+        .model-label.top-right { top: 30px; right: 30px; }
+        .model-label.bottom-left { bottom: 30px; left: 30px; }
+        .model-label.bottom-right { bottom: 30px; right: 30px; }
+        .model-status {
+            position: absolute;
+            left: 30px;
+            bottom: 82px;
+            display: flex;
+            flex-direction: column;
+            gap: 0.15rem;
+            color: #64748b;
+            font-size: 0.6rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+        .model-status strong { color: #e2e8f0; font-size: 0.68rem; }
+        .model-legend {
+            position: absolute;
+            right: 28px;
+            bottom: 18px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+            gap: 0.35rem 0.65rem;
+            max-width: 62%;
+            color: #94a3b8;
+            font-size: 0.52rem;
+            letter-spacing: 0.07em;
+            text-transform: uppercase;
+        }
+        .model-legend span { display: inline-flex; align-items: center; gap: 0.28rem; }
+        .model-legend i {
+            width: 0.42rem;
+            height: 0.42rem;
+            border-radius: 999px;
+            background: #38bdf8;
+            box-shadow: 0 0 8px rgba(56,189,248,0.75);
+        }
+        .model-legend span:nth-child(2) i { background: #7dd3fc; }
+        .model-legend span:nth-child(3) i { background: #e0f2fe; }
+        .model-legend span:nth-child(4) i { background: #bae6fd; }
+        .model-avatar {
+            position: absolute;
+            right: 28px;
+            bottom: 76px;
+            width: 54px;
+            height: 54px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 2px solid rgba(56,189,248,0.65);
+            box-shadow: 0 0 24px rgba(14,165,233,0.25);
+            background: #0f172a;
+        }
+        .model-avatar img { width:100%; height:100%; object-fit:cover; }
+        .model-caption {
+            position: absolute;
+            top: 74px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #64748b;
+            font-size: 0.6rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+        @media (max-width: 640px) {
+            .engineering-3d { height: 430px; border-radius: 1.25rem; }
+            .model-label { font-size: 0.56rem; padding: 0.38rem 0.55rem; }
+            .model-label.top-left { top: 22px; left: 22px; }
+            .model-label.top-right { top: 22px; right: 22px; }
+            .model-label.bottom-left { bottom: 22px; left: 22px; }
+            .model-label.bottom-right { bottom: 22px; right: 22px; }
+            .model-status { left:22px; bottom:72px; }
+            .model-avatar { width: 46px; height: 46px; right: 22px; bottom: 68px; }
+            .model-caption { top: 58px; font-size: 0.5rem; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            .reveal { opacity: 1; transform: none; transition: none; }
+        }
+    </style>
+</head>
+<body class="font-sans antialiased selection:bg-brand-500 selection:text-white">
+    <a href="#home" class="skip-link">Skip to content</a>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 glass-nav transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20">
+                <div class="flex items-center">
+                    <a href="#home" class="text-2xl font-bold text-white tracking-tight flex items-center gap-2" aria-label="Zefa.Dev home">
+                        <i class="fas fa-microchip text-brand-500"></i>
+                        <span>Zefa<span class="text-brand-500">.</span>Dev</span>
+                    </a>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#about" class="text-gray-300 hover:text-brand-400 font-medium transition-colors text-sm uppercase tracking-wider">About</a>
+                    <a href="#experience" class="text-gray-300 hover:text-brand-400 font-medium transition-colors text-sm uppercase tracking-wider">Experience</a>
+                    <a href="#skills" class="text-gray-300 hover:text-brand-400 font-medium transition-colors text-sm uppercase tracking-wider">Skills</a>
+                    <a href="#contact" class="px-5 py-2.5 rounded-md bg-brand-600/20 border border-brand-500 text-brand-400 hover:bg-brand-500 hover:text-white transition-all text-sm uppercase tracking-wider font-semibold">Contact</a>
+                </div>
+                <!-- Mobile menu button -->
+                <div class="flex items-center md:hidden">
+                    <button id="mobile-menu-btn" class="text-gray-300 hover:text-white focus:outline-none" aria-controls="mobile-menu" aria-expanded="false" aria-label="Toggle navigation menu">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-dark-800 border-t border-dark-700">
+            <div class="px-4 pt-2 pb-4 space-y-2 sm:px-6">
+                <a href="#about" class="block px-3 py-2 text-gray-300 font-medium hover:text-brand-400">About</a>
+                <a href="#experience" class="block px-3 py-2 text-gray-300 font-medium hover:text-brand-400">Experience</a>
+                <a href="#skills" class="block px-3 py-2 text-gray-300 font-medium hover:text-brand-400">Skills</a>
+                <a href="#contact" class="block px-3 py-2 text-brand-400 font-medium">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="pt-32 pb-20 md:pt-48 md:pb-32 relative overflow-hidden tech-grid min-h-[90vh] flex items-center">
+        <!-- Glow Effects -->
+        <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-brand-600/20 rounded-full blur-[100px] pointer-events-none"></div>
+        <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-600/10 rounded-full blur-[100px] pointer-events-none"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
+            <div class="text-center md:text-left flex flex-col md:flex-row items-center justify-between gap-12">
+                <div class="md:w-3/5">
+                    <p class="text-brand-400 font-mono tracking-wide uppercase mb-2 text-sm md:text-base">COMPUTER ENGINEERING</p>
+                    <h1 class="text-5xl md:text-7xl font-bold text-white leading-tight mb-6 tracking-tight">
+                        Hello, I'm <br/>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-blue-500">Haekal Zefa</span>
+                    </h1>
+                    <h2 class="text-xl md:text-2xl text-gray-400 mb-8 font-light max-w-2xl">
+                        Bridging <span class="text-white font-semibold">MEP Engineering</span> & <span class="text-white font-semibold">Quantity Surveying</span> with precision and modern technology.
+                    </h2>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+                        <a href="#experience" class="px-8 py-3.5 rounded-md bg-brand-500 text-white font-semibold hover:bg-brand-400 transition-colors shadow-[0_0_20px_rgba(14,165,233,0.3)] text-center">
+                            Explore Projects
+                        </a>
+                        <a href="#about" class="px-8 py-3.5 rounded-md bg-dark-800 border border-dark-700 text-gray-300 font-semibold hover:border-brand-500 hover:text-white transition-colors text-center group">
+                            About Me <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="md:w-2/5 flex justify-center">
+                    <div class="engineering-3d reveal" aria-label="Interactive 3D building model with electrical MEP systems">
+                        <canvas id="engineering-canvas"></canvas>
+                        <div class="model-hud">
+                            <div class="model-caption">Interactive MEP visualization</div>
+                            <div class="model-label top-left">3D BUILDING</div>
+                            <div class="model-label top-right">ELECTRICAL MEP</div>
+                            <div class="model-label bottom-left">POWER / DATA</div>
+                            <div class="model-label bottom-right">FIRE &amp; LIFE SAFETY</div>
+                            <div class="model-status">
+                                <span>System status</span>
+                                <strong>ONLINE · 24/7</strong>
+                            </div>
+                            <div class="model-legend" aria-hidden="true">
+                                <span><i></i>Cable Tray</span>
+                                <span><i></i>Riser</span>
+                                <span><i></i>Panel</span>
+                                <span><i></i>Lighting</span>
+                            </div>
+                            <div class="model-avatar">
+                                <img src="haekal-zefa.jpg" alt="Haekal Zefa Ramadhan">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-24 bg-dark-900 border-y border-dark-800 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center gap-4 mb-16">
+                <span class="text-brand-500 font-mono text-xl">01.</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-white">About Me</h2>
+                <div class="h-px bg-dark-700 flex-grow ml-4"></div>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-5 gap-12 items-start">
+                <div class="lg:col-span-3 space-y-6 text-gray-400 text-lg leading-relaxed">
+                    <p>
+                        I am an adaptable and detail-oriented professional with a unique blend of IT and construction expertise. Holding a degree as a <strong class="text-brand-400">Sarjana Teknik (S.T.) in Computer Engineering</strong>, I have successfully transitioned my analytical and technical skills into the construction and infrastructure sector.
+                    </p>
+                    <p>
+                        With hands-on experience in major construction projects, I specialize as an <strong class="text-brand-400">MEP (Mechanical, Electrical, and Plumbing) Engineer</strong> and <strong class="text-brand-400">Quantity Surveyor (QS)</strong>. 
+                    </p>
+                    <p>
+                        My core focus lies in designing and managing building electronics, ensuring safety through robust fire alarm and hydrant systems, and providing highly accurate cost estimations to keep projects viable and within budget. I leverage my computer engineering background to bring structured, logical problem-solving to complex site challenges.
+                    </p>
+                </div>
+                
+                <div class="lg:col-span-2">
+                    <div class="bg-dark-800 border border-dark-700 rounded-xl p-8 shadow-xl">
+                        <h3 class="text-white font-semibold text-xl mb-6 flex items-center border-b border-dark-700 pb-4">
+                            <i class="fas fa-graduation-cap text-brand-500 mr-3"></i> Education Highlights
+                        </h3>
+                        
+                        <div class="space-y-6">
+                            <div class="relative pl-6 border-l-2 border-brand-500/50">
+                                <div class="absolute w-3 h-3 bg-brand-500 rounded-full -left-[7px] top-1.5 shadow-[0_0_10px_rgba(14,165,233,0.8)]"></div>
+                                <h4 class="text-lg font-bold text-white">S1 Teknik Komputer</h4>
+                                <p class="text-brand-400 font-mono text-sm my-1">Graduated: 2023</p>
+                                <div class="mt-2 inline-block px-3 py-1 bg-dark-900 border border-dark-700 rounded text-sm">
+                                    GPA: <span class="text-white font-bold">3.16</span>
+                                </div>
+                                <p class="text-gray-400 text-sm mt-3">
+                                    Bachelor of Engineering (S.T.). Built a strong foundation in systems architecture, networking, logic design, and analytical problem solving.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="py-24 bg-dark-900 tech-grid">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center gap-4 mb-16">
+                <span class="text-brand-500 font-mono text-xl">02.</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-white">Experience</h2>
+                <div class="h-px bg-dark-700 flex-grow ml-4"></div>
+            </div>
+
+            <div class="space-y-12">
+                
+                <!-- Experience 1: Bianglala Utama -->
+                <div class="reveal group relative bg-dark-800 rounded-2xl border border-dark-700 hover:border-emerald-500/50 transition-all duration-300 overflow-hidden shadow-lg hover:shadow-emerald-500/10">
+                    <div class="absolute top-0 left-0 w-2 h-full bg-emerald-500"></div>
+                    <div class="p-8 md:p-10 lg:flex gap-8 items-start">
+                        <div class="lg:w-1/4 mb-6 lg:mb-0 shrink-0">
+                            <div class="font-mono text-emerald-400 text-sm mb-2">Februari 2026 - Sekarang</div>
+                            <h3 class="text-xl font-bold text-white leading-tight">Pelaksana MEP, QS MEP & Site Engineer MEP</h3>
+                            <p class="text-gray-400 mt-2 font-medium">Bianglala Utama, KSO</p>
+                        </div>
+                        <div class="lg:w-3/4">
+                            <h4 class="text-xl text-gray-200 font-semibold mb-4 border-b border-dark-700 pb-4">
+                                Proyek Belanja Modal Bangunan Fasilitas Umum (Pengadaan Gondola (Kereta Gantung) Tower Turyapada) Buleleng, Bali
+                            </h4>
+                            <ul class="space-y-3 text-gray-400">
+                                <li class="flex items-start">
+                                    <i class="fas fa-chevron-right text-emerald-500 mt-1.5 mr-3 text-xs"></i>
+                                    <span>Bertanggung jawab atas rangkap tugas sebagai Pelaksana, Quantity Surveyor (QS), dan Site Engineer khusus pekerjaan MEP.</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-chevron-right text-emerald-500 mt-1.5 mr-3 text-xs"></i>
+                                    <span>Mengelola pelaksanaan teknis dan perhitungan volume material secara presisi untuk infrastruktur kereta gantung (Gondola) di Tower Turyapada.</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-chevron-right text-emerald-500 mt-1.5 mr-3 text-xs"></i>
+                                    <span>Berkoordinasi langsung dengan pihak manajemen konstruksi dan tim sipil guna kelancaran integrasi sistem MEP dengan struktur utama.</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Experience 1: Trijaya Labda -->
+                <div class="reveal group relative bg-dark-800 rounded-2xl border border-dark-700 hover:border-brand-500/50 transition-all duration-300 overflow-hidden shadow-lg hover:shadow-brand-500/10">
+                    <div class="absolute top-0 left-0 w-2 h-full bg-brand-500"></div>
+                    <div class="p-8 md:p-10 lg:flex gap-8 items-start">
+                        <div class="lg:w-1/4 mb-6 lg:mb-0 shrink-0">
+                            <div class="font-mono text-brand-400 text-sm mb-2">Juli 2025 - Januari 2026</div>
+                            <h3 class="text-2xl font-bold text-white leading-tight">Sub-kontraktor MEP</h3>
+                            <div class="flex items-center gap-3 mt-3">
+                                <!-- Requested Image Logo -->
+                                <div class="bg-white p-1 rounded border border-gray-200">
+                                    <img src="trijaya-labda.jpeg" alt="Trijaya Labda,KSO" class="w-8 h-8 object-contain">
+                                </div>
+                                <p class="text-gray-400 mt-2 font-medium">Trijaya Labda, KSO</p>
+                            </div>
+                        </div>
+                        <div class="lg:w-3/4">
+                            <h4 class="text-xl text-gray-200 font-semibold mb-4 border-b border-dark-700 pb-4 leading-relaxed">
+                                Proyek Pembangunan Gedung Praktik Kedokteran MER-C Universitas Palangkaraya
+                            </h4>
+                            <ul class="space-y-3 text-gray-400">
+                                <li class="flex items-start">
+                                    <i class="fas fa-chevron-right text-brand-500 mt-1.5 mr-3 text-xs"></i>
+                                    <span>Bertindak sebagai Sub-kontraktor spesialis MEP untuk fasilitas pendidikan tinggi medis yang kompleks.</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-chevron-right text-brand-500 mt-1.5 mr-3 text-xs"></i>
+                                    <span>Mengelola instalasi sistem mekanikal, elektrikal, dan pemipaan (Plumbing) khusus yang memenuhi standar fasilitas praktik kedokteran.</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-chevron-right text-brand-500 mt-1.5 mr-3 text-xs"></i>
+                                    <span>Memastikan kalkulasi material, biaya, dan pelaksanaan teknis berjalan efisien sesuai dengan timeline proyek (Juli 2025 - Januari 2026).</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Experience 2: PT Kanta Karya Utama -->
+                <div class="reveal group relative bg-dark-800 rounded-2xl border border-dark-700 hover:border-blue-500/50 transition-all duration-300 overflow-hidden shadow-lg hover:shadow-blue-500/10">
+                    <div class="absolute top-0 left-0 w-2 h-full bg-blue-500"></div>
+                    <div class="p-8 md:p-10 lg:flex gap-8 items-start">
+                        <div class="lg:w-1/4 mb-6 lg:mb-0 shrink-0">
+                            <div class="font-mono text-blue-400 text-sm mb-2">Juli 2024 - Januari 2025</div>
+                            <h3 class="text-2xl font-bold text-white leading-tight">Inspector MEP</h3>
+                            <div class="flex items-center gap-3 mt-3">
+                                <!-- Requested Image Logo -->
+                                <div class="bg-white p-1 rounded border border-gray-200">
+                                    <img src="kanta.png" alt="PT. Kanta Karya Utama Logo" class="w-8 h-8 object-contain">
+                                </div>
+                                <p class="text-gray-400 font-medium">PT. Kanta Karya Utama</p>
+                            </div>
+                        </div>
+                        <div class="lg:w-3/4">
+                                <h4 class="text-xl text-gray-200 font-semibold mb-4 border-b border-dark-700 pb-4 leading-relaxed">
+                                Proyek Pembangunan Kantin, Jembatan, Infrastruktur, Pagar, Gerbang dan Penyempurnaan Gedung Praktik Politeknik Pariwisata NHI Bandung
+                                </h4>
+                                <ul class="space-y-3 text-gray-400">
+                                    <li class="flex items-start">
+                                        <i class="fas fa-chevron-right text-blue-500 mt-1.5 mr-3 text-xs"></i>
+                                        <span>Melakukan inspeksi menyeluruh terhadap pekerjaan MEP untuk berbagai infrastruktur kampus termasuk jembatan, gerbang, dan gedung praktik.</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-chevron-right text-blue-500 mt-1.5 mr-3 text-xs"></i>
+                                    <span>Mengawasi Quality Control (QC) harian guna memastikan standar instalasi listrik, tata udara, dan sanitasi terpenuhi dengan baik.</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-chevron-right text-blue-500 mt-1.5 mr-3 text-xs"></i>
+                                    <span>Menjembatani komunikasi teknis antara tim pelaksana di lapangan dengan manajemen konstruksi pusat.</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-24 bg-dark-900 border-t border-dark-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center gap-4 mb-16">
+                <span class="text-brand-500 font-mono text-xl">03.</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-white">Technical Arsenal</h2>
+                <div class="h-px bg-dark-700 flex-grow ml-4"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Skill Card 1 -->
+                <div class="reveal bg-dark-800 border border-dark-700 rounded-xl p-6 hover:-translate-y-2 transition-transform duration-300">
+                    <div class="w-12 h-12 bg-dark-900 border border-brand-500/30 rounded-lg flex items-center justify-center text-brand-400 mb-6 text-xl">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">MEP Engineering</h3>
+                    <p class="text-gray-400 text-sm">
+                        Comprehensive understanding of mechanical, electrical, and plumbing systems for modern buildings and infrastructure.
+                    </p>
+                </div>
+
+                <!-- Skill Card 2 -->
+                <div class="reveal bg-dark-800 border border-dark-700 rounded-xl p-6 hover:-translate-y-2 transition-transform duration-300">
+                    <div class="w-12 h-12 bg-dark-900 border border-brand-500/30 rounded-lg flex items-center justify-center text-brand-400 mb-6 text-xl">
+                        <i class="fas fa-calculator"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Quantity Surveying</h3>
+                    <p class="text-gray-400 text-sm">
+                        Precise material calculations, cost estimations (BoQ), and budget management for MEP scopes.
+                    </p>
+                </div>
+
+                <!-- Skill Card 3 -->
+                <div class="reveal bg-dark-800 border border-dark-700 rounded-xl p-6 hover:-translate-y-2 transition-transform duration-300">
+                    <div class="w-12 h-12 bg-dark-900 border border-brand-500/30 rounded-lg flex items-center justify-center text-brand-400 mb-6 text-xl">
+                        <i class="fas fa-fire-extinguisher"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Fire & Hydrant Systems</h3>
+                    <p class="text-gray-400 text-sm">
+                        Design and inspection of critical life-safety systems including fire alarms and water-based extinguishing networks.
+                    </p>
+                </div>
+                
+                <!-- Skill Card 4 -->
+                <div class="reveal bg-dark-800 border border-dark-700 rounded-xl p-6 hover:-translate-y-2 transition-transform duration-300">
+                    <div class="w-12 h-12 bg-dark-900 border border-brand-500/30 rounded-lg flex items-center justify-center text-brand-400 mb-6 text-xl">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">IT & Web (HTML/CSS)</h3>
+                    <p class="text-gray-400 text-sm">
+                        Leveraging computer engineering background to understand building electronics and basic web technologies.
+                    </p>
+                </div>
+
+                <!-- Skill Card 5 -->
+                <div class="reveal bg-dark-800 border border-dark-700 rounded-xl p-6 hover:-translate-y-2 transition-transform duration-300">
+                    <div class="w-12 h-12 bg-dark-900 border border-brand-500/30 rounded-lg flex items-center justify-center text-brand-400 mb-6 text-xl">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Quality Control & Inspection</h3>
+                    <p class="text-gray-400 text-sm">
+                        Meticulous site inspection ensuring contractors meet strict quality standards and project specifications.
+                    </p>
+                </div>
+                
+                <!-- Skill Card 6 -->
+                <div class="reveal bg-dark-800 border border-dark-700 rounded-xl p-6 hover:-translate-y-2 transition-transform duration-300">
+                    <div class="w-12 h-12 bg-dark-900 border border-brand-500/30 rounded-lg flex items-center justify-center text-brand-400 mb-6 text-xl">
+                        <i class="fas fa-users-cog"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Project Coordination</h3>
+                    <p class="text-gray-400 text-sm">
+                        Acting as a bridge between field teams, sub-contractors, and main construction management.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact / Footer Section -->
+    <footer id="contact" class="bg-dark-900 border-t border-dark-800 pt-20 pb-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <span class="text-brand-500 font-mono text-sm mb-4 block">04. What's Next?</span>
+                <h2 class="text-4xl font-bold text-white mb-6">Get In Touch</h2>
+                <p class="text-gray-400 mb-8">
+                    Currently open for new opportunities. Whether you have a question regarding MEP inspection, QS estimates, or just want to say hi, I'll try my best to get back to you!
+                </p>
+                <a href="mailto:hello@example.com" aria-label="Send an email to Haekal Zefa" class="inline-flex items-center px-8 py-4 rounded-md border border-brand-500 text-brand-400 font-mono hover:bg-brand-500/10 transition-colors">
+                    <i class="fas fa-envelope mr-3"></i> Say Hello
+                </a>
+            </div>
+            
+            <div class="flex flex-col md:flex-row items-center justify-between border-t border-dark-800 pt-8 mt-16">
+                <div class="flex items-center space-x-6 mb-4 md:mb-0">
+                    <a href="#" class="text-gray-400 hover:text-brand-400 transition-colors text-xl" aria-label="LinkedIn">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-brand-400 transition-colors text-xl" aria-label="GitHub">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-brand-400 transition-colors text-xl" aria-label="Instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                </div>
+                <div class="text-gray-500 font-mono text-sm text-center md:text-right">
+                    <p>Built by Haekal Zefa Ramadhan.</p>
+                    <p class="mt-1">&copy; 2026 All Rights Reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Mobile Menu Toggle
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+
+        btn.addEventListener('click', () => {
+            const isOpen = btn.getAttribute('aria-expanded') === 'true';
+            btn.setAttribute('aria-expanded', String(!isOpen));
+            menu.classList.toggle('hidden');
+        });
+
+        // Close mobile menu on link click or Escape.
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                menu.classList.add('hidden');
+                btn.setAttribute('aria-expanded', 'false');
+            });
+        });
+
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape') {
+                menu.classList.add('hidden');
+                btn.setAttribute('aria-expanded', 'false');
+            }
+        });
+
+        // Sticky Navbar effect with blur and shadow.
+        const nav = document.querySelector('nav');
+        const updateNav = () => {
+            nav.classList.toggle('shadow-lg', window.scrollY > 50);
+            nav.classList.toggle('shadow-black/20', window.scrollY > 50);
+        };
+        window.addEventListener('scroll', updateNav, { passive: true });
+        updateNav();
+
+        // Reveal cards/sections as they enter the viewport.
+        const revealItems = document.querySelectorAll('.reveal');
+        const observer = new IntersectionObserver((entries, obs) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    obs.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.12 });
+        revealItems.forEach(item => observer.observe(item));
+
+        // Interactive 3D MEP building model (Three.js, procedural geometry).
+        (() => {
+            const canvas = document.getElementById('engineering-canvas');
+            if (!canvas) return;
+
+            const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+            const loadThree = () => new Promise((resolve, reject) => {
+                if (window.THREE) return resolve(window.THREE);
+                const script = document.createElement('script');
+                script.src = 'https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js';
+                script.async = true;
+                script.onload = () => resolve(window.THREE);
+                script.onerror = () => reject(new Error('Three.js failed to load'));
+                document.head.appendChild(script);
+            });
+
+            loadThree().then((THREE) => {
+                const host = canvas.parentElement;
+                const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+                renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+                renderer.setClearColor(0x000000, 0);
+                renderer.outputColorSpace = THREE.SRGBColorSpace;
+
+                const scene = new THREE.Scene();
+                scene.fog = new THREE.FogExp2(0x020617, 0.032);
+
+                const camera = new THREE.PerspectiveCamera(34, 1, 0.1, 120);
+                camera.position.set(9.4, 7.2, 11.8);
+
+                scene.add(new THREE.HemisphereLight(0x8bd9ff, 0x06101e, 1.9));
+                const key = new THREE.DirectionalLight(0xffffff, 2.3);
+                key.position.set(7, 11, 7);
+                scene.add(key);
+                const rim = new THREE.PointLight(0x0ea5e9, 34, 24);
+                rim.position.set(-6, 5, 3);
+                scene.add(rim);
+
+                const root = new THREE.Group();
+                scene.add(root);
+
+                const building = new THREE.Group();
+                root.add(building);
+
+                const floorCount = 7;
+                const floorHeight = 1.05;
+                const bodyW = 5.6;
+                const bodyD = 3.5;
+                const totalH = floorCount * floorHeight;
+
+                const glassMat = new THREE.MeshStandardMaterial({
+                    color: 0x1f3f5c,
+                    metalness: 0.22,
+                    roughness: 0.34,
+                    transparent: true,
+                    opacity: 0.24,
+                    side: THREE.DoubleSide
+                });
+                const concreteMat = new THREE.MeshStandardMaterial({
+                    color: 0x0f172a,
+                    metalness: 0.58,
+                    roughness: 0.5
+                });
+                const slabMat = new THREE.MeshStandardMaterial({
+                    color: 0x334155,
+                    metalness: 0.68,
+                    roughness: 0.42
+                });
+                const glassFrameMat = new THREE.MeshStandardMaterial({
+                    color: 0x60a5fa,
+                    metalness: 0.32,
+                    roughness: 0.3,
+                    transparent: true,
+                    opacity: 0.42
+                });
+                const trayMat = new THREE.MeshStandardMaterial({
+                    color: 0x38bdf8,
+                    emissive: 0x0ea5e9,
+                    emissiveIntensity: 1.7,
+                    metalness: 0.22,
+                    roughness: 0.28
+                });
+                const conduitMat = new THREE.MeshStandardMaterial({
+                    color: 0x7dd3fc,
+                    emissive: 0x0ea5e9,
+                    emissiveIntensity: 1.1,
+                    metalness: 0.2,
+                    roughness: 0.3
+                });
+                const panelMat = new THREE.MeshStandardMaterial({
+                    color: 0xe0f2fe,
+                    emissive: 0x0284c7,
+                    emissiveIntensity: 1.8,
+                    metalness: 0.18,
+                    roughness: 0.26
+                });
+                const lightMat = new THREE.MeshStandardMaterial({
+                    color: 0xffffff,
+                    emissive: 0x7dd3fc,
+                    emissiveIntensity: 3.4,
+                    metalness: 0.05,
+                    roughness: 0.2
+                });
+                const warningMat = new THREE.MeshStandardMaterial({
+                    color: 0xcffafe,
+                    emissive: 0x0284c7,
+                    emissiveIntensity: 1.0,
+                    metalness: 0.16,
+                    roughness: 0.3
+                });
+
+                // Main building shell: intentionally transparent so the electrical system remains visible.
+                const shell = new THREE.Mesh(new THREE.BoxGeometry(bodyW, totalH, bodyD), glassMat);
+                shell.position.y = totalH / 2;
+                building.add(shell);
+
+                // Structural corners and floor plates define the actual geometry that the MEP follows.
+                const columnGeo = new THREE.BoxGeometry(0.18, totalH + 0.08, 0.18);
+                [[-bodyW/2, -bodyD/2], [bodyW/2, -bodyD/2], [-bodyW/2, bodyD/2], [bodyW/2, bodyD/2]].forEach(([x, z]) => {
+                    const column = new THREE.Mesh(columnGeo, concreteMat);
+                    column.position.set(x, totalH / 2, z);
+                    building.add(column);
+                });
+
+                const slabGeo = new THREE.BoxGeometry(bodyW + 0.18, 0.11, bodyD + 0.18);
+                const windowGeo = new THREE.BoxGeometry(0.72, 0.5, 0.055);
+                const horizontalFrameGeo = new THREE.BoxGeometry(bodyW, 0.055, 0.06);
+                for (let floor = 0; floor < floorCount; floor++) {
+                    const y = floor * floorHeight + 0.05;
+                    const slab = new THREE.Mesh(slabGeo, slabMat);
+                    slab.position.y = y;
+                    building.add(slab);
+
+                    for (let row = -2; row <= 2; row++) {
+                        const winFront = new THREE.Mesh(windowGeo, warningMat);
+                        winFront.position.set(row * 1.0, floor * floorHeight + 0.52, bodyD / 2 + 0.035);
+                        building.add(winFront);
+                    }
+
+                    const frame = new THREE.Mesh(horizontalFrameGeo, glassFrameMat);
+                    frame.position.set(0, floor * floorHeight + 0.83, bodyD / 2 + 0.045);
+                    building.add(frame);
+                }
+
+                // Central electrical shaft that physically runs through all floors.
+                const shaftX = -1.55;
+                const shaftZ = 0.18;
+                const riser = new THREE.Mesh(
+                    new THREE.BoxGeometry(0.16, totalH - 0.22, 0.16),
+                    conduitMat
+                );
+                riser.position.set(shaftX, totalH / 2, shaftZ);
+                building.add(riser);
+
+                // Electrical room / LV panel zone on each floor.
+                const electricalSystem = new THREE.Group();
+                building.add(electricalSystem);
+
+                const panelGeo = new THREE.BoxGeometry(0.34, 0.46, 0.12);
+                const trayGeo = new THREE.BoxGeometry(3.72, 0.08, 0.12);
+                const branchTrayGeo = new THREE.BoxGeometry(1.6, 0.06, 0.09);
+                const lightGeo = new THREE.BoxGeometry(0.32, 0.04, 0.16);
+                const outletGeo = new THREE.BoxGeometry(0.08, 0.12, 0.05);
+
+                // MEP layout follows the building floor-by-floor.
+                for (let floor = 0; floor < floorCount; floor++) {
+                    const baseY = floor * floorHeight;
+                    const ceilingY = baseY + 0.82;
+
+                    // Main cable tray follows the rear service corridor inside the building footprint.
+                    const tray = new THREE.Mesh(trayGeo, trayMat);
+                    tray.position.set(0.12, ceilingY, -0.98);
+                    electricalSystem.add(tray);
+
+                    // Branch trays split from the main corridor toward left/right zones.
+                    [-1, 1].forEach((dir) => {
+                        const branch = new THREE.Mesh(branchTrayGeo, trayMat);
+                        branch.rotation.y = Math.PI / 2;
+                        branch.position.set(dir * 1.65, ceilingY - 0.05, -0.32);
+                        electricalSystem.add(branch);
+                    });
+
+                    // Floor distribution panel sits beside the riser, aligned to the same vertical shaft.
+                    const panel = new THREE.Mesh(panelGeo, panelMat);
+                    panel.position.set(shaftX - 0.28, baseY + 0.47, shaftZ + 0.2);
+                    electricalSystem.add(panel);
+
+                    // Three ceiling fixtures repeat with the same bay spacing on each floor.
+                    [-1.55, 0, 1.55].forEach((x) => {
+                        const fixture = new THREE.Mesh(lightGeo, lightMat);
+                        fixture.position.set(x, ceilingY - 0.08, 0.48);
+                        electricalSystem.add(fixture);
+                    });
+
+                    // Small wall outlets follow the front facade bay spacing.
+                    [-1.75, -0.6, 0.6, 1.75].forEach((x) => {
+                        const outlet = new THREE.Mesh(outletGeo, panelMat);
+                        outlet.position.set(x, baseY + 0.42, bodyD / 2 - 0.12);
+                        electricalSystem.add(outlet);
+                    });
+                }
+
+                // Feeder route from the rooftop main panel to the building's electrical riser and down to ground.
+                const routeMat = new THREE.LineBasicMaterial({ color: 0x38bdf8, transparent: true, opacity: 0.95 });
+                const routePoints = [
+                    new THREE.Vector3(shaftX, totalH + 0.34, shaftZ),
+                    new THREE.Vector3(shaftX, totalH - 0.12, shaftZ),
+                    new THREE.Vector3(shaftX, 0.25, shaftZ),
+                    new THREE.Vector3(-2.6, 0.25, shaftZ),
+                    new THREE.Vector3(-2.6, -0.08, shaftZ)
+                ];
+                building.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(routePoints), routeMat));
+
+                // Rooftop main distribution board, meter box and lightning marker sit on the building footprint.
+                const roofBox = new THREE.Mesh(new THREE.BoxGeometry(1.7, 0.58, 1.1), concreteMat);
+                roofBox.position.set(0.85, totalH + 0.34, -0.25);
+                building.add(roofBox);
+
+                const mainPanel = new THREE.Mesh(new THREE.BoxGeometry(0.82, 0.68, 0.24), panelMat);
+                mainPanel.position.set(shaftX, totalH + 0.36, bodyD / 2 + 0.16);
+                building.add(mainPanel);
+
+                const meter = new THREE.Mesh(new THREE.CylinderGeometry(0.12, 0.12, 0.08, 24), panelMat);
+                meter.rotation.z = Math.PI / 2;
+                meter.position.set(shaftX + 0.5, totalH + 0.46, bodyD / 2 + 0.16);
+                building.add(meter);
+
+                const lightning = new THREE.Mesh(new THREE.OctahedronGeometry(0.25), trayMat);
+                lightning.position.set(shaftX - 0.7, totalH + 0.98, bodyD / 2 + 0.18);
+                building.add(lightning);
+
+                // Ground plate + ring anchor the building and make its footprint easier to read.
+                const ground = new THREE.Mesh(
+                    new THREE.CylinderGeometry(5.7, 5.7, 0.18, 64),
+                    new THREE.MeshStandardMaterial({ color: 0x0b1220, metalness: 0.72, roughness: 0.5 })
+                );
+                ground.position.y = -0.14;
+                root.add(ground);
+
+                const ring = new THREE.Mesh(
+                    new THREE.TorusGeometry(4.15, 0.018, 8, 96),
+                    new THREE.MeshBasicMaterial({ color: 0x0ea5e9, transparent: true, opacity: 0.34 })
+                );
+                ring.rotation.x = Math.PI / 2;
+                ring.position.y = 0.02;
+                root.add(ring);
+
+                // Animated electrical energy travels through the same vertical riser and across the main trays.
+                const nodeMat = new THREE.MeshBasicMaterial({ color: 0xe0f2fe });
+                const nodes = [];
+                for (let i = 0; i < 6; i++) {
+                    const node = new THREE.Mesh(new THREE.SphereGeometry(0.065, 12, 12), nodeMat);
+                    node.userData.phase = i * 0.82;
+                    building.add(node);
+                    nodes.push(node);
+                }
+
+                // Data points orbit the footprint very subtly.
+                const dataNodes = [];
+                for (let i = 0; i < 12; i++) {
+                    const node = new THREE.Mesh(
+                        new THREE.SphereGeometry(0.028, 8, 8),
+                        new THREE.MeshBasicMaterial({ color: 0x38bdf8 })
+                    );
+                    const angle = (i / 12) * Math.PI * 2;
+                    node.position.set(Math.cos(angle) * 4.45, 0.65 + (i % 4) * 0.2, Math.sin(angle) * 4.45);
+                    root.add(node);
+                    dataNodes.push({ mesh: node, angle, speed: 0.16 + i * 0.004 });
+                }
+
+                root.rotation.y = -0.42;
+                root.rotation.x = -0.08;
+
+                let targetRotX = root.rotation.x;
+                let targetRotY = root.rotation.y;
+                let dragStart = null;
+                let time = 0;
+
+                const resize = () => {
+                    const w = host.clientWidth || 560;
+                    const h = host.clientHeight || 560;
+                    renderer.setSize(w, h, false);
+                    camera.aspect = w / h;
+                    camera.updateProjectionMatrix();
+                };
+                resize();
+                window.addEventListener('resize', resize, { passive: true });
+
+                canvas.addEventListener('pointerdown', (event) => {
+                    canvas.setPointerCapture(event.pointerId);
+                    dragStart = { x: event.clientX, y: event.clientY, rx: targetRotX, ry: targetRotY };
+                });
+                canvas.addEventListener('pointermove', (event) => {
+                    if (!dragStart) return;
+                    targetRotY = dragStart.ry + (event.clientX - dragStart.x) * 0.008;
+                    targetRotX = THREE.MathUtils.clamp(
+                        dragStart.rx + (event.clientY - dragStart.y) * 0.004,
+                        -0.4,
+                        0.32
+                    );
+                });
+                const stopDrag = () => { dragStart = null; };
+                canvas.addEventListener('pointerup', stopDrag);
+                canvas.addEventListener('pointercancel', stopDrag);
+                canvas.addEventListener('pointerleave', stopDrag);
+
+                const animate = () => {
+                    requestAnimationFrame(animate);
+                    time += 0.016;
+
+                    if (!dragStart && !reducedMotion) targetRotY += 0.0021;
+                    root.rotation.x += (targetRotX - root.rotation.x) * 0.06;
+                    root.rotation.y += (targetRotY - root.rotation.y) * 0.06;
+
+                    if (!reducedMotion) {
+                        mainPanel.material.emissiveIntensity = 1.7 + Math.sin(time * 3.1) * 0.45;
+                        panelMat.emissiveIntensity = 1.5 + Math.sin(time * 3.1) * 0.35;
+                        lightMat.emissiveIntensity = 2.8 + Math.sin(time * 5.0) * 1.2;
+                        lightning.rotation.y += 0.015;
+                        lightning.position.y = totalH + 0.98 + Math.sin(time * 2.1) * 0.045;
+
+                        nodes.forEach((node, idx) => {
+                            const cycle = (time * 0.5 + node.userData.phase) % 1;
+                            node.position.set(
+                                shaftX,
+                                0.3 + cycle * (totalH - 0.22),
+                                shaftZ + 0.05
+                            );
+                            const pulse = 0.85 + 0.35 * Math.sin(time * 5 + idx);
+                            node.scale.setScalar(pulse);
+                        });
+
+                        dataNodes.forEach((item) => {
+                            item.angle += item.speed * 0.006;
+                            item.mesh.position.x = Math.cos(item.angle) * 4.45;
+                            item.mesh.position.z = Math.sin(item.angle) * 4.45;
+                        });
+                    }
+
+                    camera.lookAt(0, totalH * 0.46, 0);
+                    renderer.render(scene, camera);
+                };
+
+                animate();
+            }).catch(() => {
+                canvas.style.display = 'none';
+                const fallback = document.createElement('div');
+                fallback.className = 'absolute inset-0 flex items-center justify-center text-center px-8';
+                fallback.innerHTML = '<div><div class="text-brand-400 font-mono text-sm mb-2">3D MEP MODEL</div><div class="text-gray-500 text-sm">WebGL/Three.js tidak tersedia di browser ini.</div></div>';
+                canvas.parentElement.appendChild(fallback);
+            });
+        })();
+
+        // Highlight the active section in the desktop navigation.
+        const sections = document.querySelectorAll('section[id], footer[id]');
+        const navLinks = document.querySelectorAll('nav a[href^="#"]');
+        const sectionObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    navLinks.forEach(link => {
+                        link.classList.toggle('text-brand-400', link.getAttribute('href') === '#' + entry.target.id);
+                    });
+                }
+            });
+        }, { rootMargin: '-35% 0px -55% 0px', threshold: 0 });
+        sections.forEach(section => sectionObserver.observe(section));
+    </script>
+</body>
+</html>
